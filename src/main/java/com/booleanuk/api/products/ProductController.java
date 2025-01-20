@@ -45,7 +45,6 @@ public class ProductController {
     @DeleteMapping("/{id}")
     @ResponseStatus()
     public Product delete(@PathVariable(name="id") int id) {
-        return null;
+        return repository.delete(id);
     }
-
 }

@@ -41,4 +41,10 @@ public class ProductRepository {
         productToUpdate.setPrice(product.getPrice());
         return productToUpdate;
     }
+
+    public Product delete(int id) {
+        Product productToDelete = find(id);
+        data.remove(productToDelete);
+        return productToDelete;
+    }
 }
