@@ -71,6 +71,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     @ResponseStatus()
     public Product delete(@PathVariable(name="id") int id) {
-        return repository.delete(id);
+        try {
+            return repository.delete(id);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found.");
+        }
     }
 }
