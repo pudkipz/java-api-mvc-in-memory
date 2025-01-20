@@ -13,12 +13,18 @@ public class Product {
         this.price = price;
     }
 
+
+
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public int getPrice() {

@@ -21,7 +21,7 @@ public class ProductController {
     @PostMapping
     @ResponseStatus
     public Product create(@RequestBody Product product) {
-        return null;
+        return repository.create(product);
     }
 
     @GetMapping

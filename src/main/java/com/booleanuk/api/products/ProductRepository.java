@@ -13,9 +13,14 @@ public class ProductRepository {
         create("Apple", "Food", 7);
     }
 
-    public void create(String name, String category, int price) {
+    public Product create(String name, String category, int price) {
         Product product = new Product(this.idCounter++, name, category, price);
         this.data.add(product);
+        return product;
+    }
+
+    public Product create(Product product) {
+        return this.create(product.getName(), product.getCategory(), product.getPrice());
     }
 
     public List<Product> findAll() {
