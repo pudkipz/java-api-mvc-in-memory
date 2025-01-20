@@ -56,7 +56,16 @@ public class ProductController {
     @PutMapping("/{id}")
     @ResponseStatus()
     public Product update(@PathVariable(name="id") int id, @RequestBody Product product) {
-        return repository.update(id, product);
+        Product updatedProduct;
+        try {
+            updatedProduct = repository.update(id, product);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found.");
+        }
+        if (updatedProduct == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product with provided name already exists.");
+        }
+        return updatedProduct;
     }
 
     @DeleteMapping("/{id}")

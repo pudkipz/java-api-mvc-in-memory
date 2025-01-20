@@ -2,6 +2,7 @@ package com.booleanuk.api.products;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ProductRepository {
     private int idCounter = 1;
@@ -20,9 +21,7 @@ public class ProductRepository {
     }
 
     public Product create(Product product) {
-        if (this.data.stream()
-                .filter(p -> p.getName().equals(product.getName()))
-                .toList().isEmpty()) {
+        if (!nameExists(product.getName())) {
             return this.create(product.getName(), product.getCategory(), product.getPrice());
         }
         return null;
@@ -46,6 +45,9 @@ public class ProductRepository {
     }
 
     public Product update(int id, Product product) {
+        if (nameExists(product.getName(), id)) {
+            return null;
+        }
         Product productToUpdate = find(id);
         productToUpdate.setName(product.getName());
         productToUpdate.setCategory(product.getCategory());
@@ -57,5 +59,17 @@ public class ProductRepository {
         Product productToDelete = find(id);
         data.remove(productToDelete);
         return productToDelete;
+    }
+
+    private boolean nameExists(String name) {
+        return !this.data.stream()
+                .filter(p -> p.getName().equals(name))
+                .toList().isEmpty();
+    }
+
+    private boolean nameExists(String name, int excludeId) {
+        return !this.data.stream()
+                .filter(p -> p.getName().equals(name) && p.getId() != excludeId)
+                .toList().isEmpty();
     }
 }
