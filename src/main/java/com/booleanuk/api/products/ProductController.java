@@ -39,7 +39,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @ResponseStatus()
     public Product update(@PathVariable(name="id") int id, @RequestBody Product product) {
-        return null;
+        return repository.update(id, product);
     }
 
     @DeleteMapping("/{id}")

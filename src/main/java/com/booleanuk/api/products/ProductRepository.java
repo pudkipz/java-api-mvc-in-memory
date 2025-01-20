@@ -33,4 +33,12 @@ public class ProductRepository {
                 .findFirst()
                 .orElseThrow();
     }
+
+    public Product update(int id, Product product) {
+        Product productToUpdate = find(id);
+        productToUpdate.setName(product.getName());
+        productToUpdate.setCategory(product.getCategory());
+        productToUpdate.setPrice(product.getPrice());
+        return productToUpdate;
+    }
 }
