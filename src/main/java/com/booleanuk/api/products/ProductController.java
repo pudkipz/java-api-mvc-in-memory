@@ -23,7 +23,11 @@ public class ProductController {
     @PostMapping
     @ResponseStatus
     public Product create(@RequestBody Product product) {
-        return repository.create(product);
+        Product p = repository.create(product);
+        if (p == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Product with provided name already exists.");
+        }
+        return p;
     }
 
     @GetMapping
@@ -38,7 +42,7 @@ public class ProductController {
         try {
             return repository.find(id);
         } catch (NoSuchElementException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found.");
         }
     }
 

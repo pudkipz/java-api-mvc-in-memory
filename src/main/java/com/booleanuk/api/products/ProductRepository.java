@@ -20,7 +20,12 @@ public class ProductRepository {
     }
 
     public Product create(Product product) {
-        return this.create(product.getName(), product.getCategory(), product.getPrice());
+        if (this.data.stream()
+                .filter(p -> p.getName().equals(product.getName()))
+                .toList().isEmpty()) {
+            return this.create(product.getName(), product.getCategory(), product.getPrice());
+        }
+        return null;
     }
 
     public List<Product> findAll() {
