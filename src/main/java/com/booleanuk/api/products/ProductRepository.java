@@ -28,6 +28,12 @@ public class ProductRepository {
         return null;
     }
 
+    public List<Product> findAll(String category) {
+        return this.data.stream()
+                .filter(p -> p.getCategory().equals(category))
+                .toList();
+    }
+
     public List<Product> findAll() {
         return this.data;
     }

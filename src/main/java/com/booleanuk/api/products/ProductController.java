@@ -32,8 +32,15 @@ public class ProductController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> getAll() {
-        return this.repository.findAll();
+    public List<Product> getAll(@RequestParam(name="category", required=false) String category) {
+        List<Product> products;
+        if (category != null)
+            products = this.repository.findAll(category);
+        else
+            products = this.repository.findAll();
+        if (products.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No products of the provided category were found.");
+        return products;
     }
 
     @GetMapping("/{id}")
