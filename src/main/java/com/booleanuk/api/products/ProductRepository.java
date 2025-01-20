@@ -2,7 +2,6 @@ package com.booleanuk.api.products;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class ProductRepository {
     private int idCounter = 1;

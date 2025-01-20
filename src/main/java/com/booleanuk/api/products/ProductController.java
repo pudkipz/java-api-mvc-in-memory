@@ -21,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @ResponseStatus
+    @ResponseStatus(HttpStatus.CREATED)
     public Product create(@RequestBody Product product) {
         Product p = repository.create(product);
         if (p == null) {
@@ -44,7 +44,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus()
+    @ResponseStatus(HttpStatus.OK)
     public Product getOne(@PathVariable(name="id") int id) {
         try {
             return repository.find(id);
@@ -54,7 +54,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus()
+    @ResponseStatus(HttpStatus.CREATED)
     public Product update(@PathVariable(name="id") int id, @RequestBody Product product) {
         Product updatedProduct;
         try {
@@ -69,7 +69,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus()
+    @ResponseStatus(HttpStatus.OK)
     public Product delete(@PathVariable(name="id") int id) {
         try {
             return repository.delete(id);
