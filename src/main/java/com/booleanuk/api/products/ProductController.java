@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("/products")
 public class ProductController {
     ProductRepository repository;
 
@@ -32,8 +32,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @ResponseStatus()
-    public Product getOne(@PathVariable(name="id") int id, @RequestBody Product product) {
-        return null;
+    public Product getOne(@PathVariable(name="id") int id) {
+        return repository.find(id);
     }
 
     @PutMapping("/{id}")
